@@ -7,24 +7,24 @@ import os
 from cuda_lint import PythonLinter
 
 
-class PEP8(PythonLinter):
-    """Provides an interface to the pep8 python module/script."""
+class PyCodeStyle(PythonLinter):
+    """Provides an interface to the pycodestyle python module/script."""
 
     syntax = 'Python'
-    cmd = ('pep8@python', '*', '-')
+    cmd = ('pycodestyle@python', '*', '-')
     
     #regex = r'^.+?:(?P<line>\d+):(?P<col>\d+): (?:(?P<error>E)|(?P<warning>W))\d+ (?P<message>.+)'
     # changed to show Ennn, Wnnn in message
     regex = r'^.+?:(?P<line>\d+):(?P<col>\d+): (?P<message>((?P<error>E)|(?P<warning>W))\d+ .+)'
     
     multiline = True
-    module = 'cuda_lint_pep8.pep8'
+    module = 'cuda_lint_pep8.pycodestyle'
 
     # Internal
     report = None
 
     def check(self, code, filename):
-        """Run pep8 on code and return the output."""
+        """Run pycodestyle on code and return the output."""
         options = {
             'reporter': self.get_report()
         }
@@ -38,7 +38,7 @@ class PEP8(PythonLinter):
             def onError(msg):
                 pass
 
-            from cuda_lint_pep8.pep8 import process_options, get_parser
+            from cuda_lint_pep8.pycodestyle import process_options, get_parser
             parser = get_parser()
             parser.error = onError
             pep8_options, _ = process_options([os.curdir], True, True, parser=parser)
@@ -67,7 +67,7 @@ class PEP8(PythonLinter):
     def get_report(self):
         """Return the Report class for use by flake8."""
         if self.report is None:
-            from cuda_lint_pep8.pep8 import StandardReport
+            from cuda_lint_pep8.pycodestyle import StandardReport
 
             class Report(StandardReport):
                 """Provides a report in the form of a single multiline string, without printing."""
