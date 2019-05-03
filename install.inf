@@ -1,5 +1,5 @@
 [info]
-title=Linter for Python, using PEP8
-desc=Linter for CudaLint, adds support for Python lexer, using Python PEP8-module
+title=Linter for Python, using PyCodeStyle
+desc=Linter for CudaLint, adds support for Python lexer, using PyCodeStyle
 type=cudatext-plugin
 subdir=cuda_lint_pep8
